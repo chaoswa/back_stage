@@ -16,7 +16,12 @@ app.use(bodyParser.json())
 
 //连接数据库，数据库操作，安装mongodb
 var MongoClient=require('mongodb').MongoClient
-var DbUrl=
+const DbUrl="mongodb://localhost:27017"
+const dbName = 'productmanage';
+// 1.启动mongodb服务，mongod --dbpath F:\mongodb;
+// 2.连接mongodb数据库，mongo
+
+
 
 
 app.get('/',function(req,res){
@@ -31,6 +36,29 @@ app.get('/login',function(req,res){
 //获取登录提交的数据
 app.post('/doLogin',function(req,res){
     console.log(req.body) //body-parser中间件，获取post提交数据
+
+    MongoClient.connect(DbUrl,{useNewUrlParser:true},function(err,client){/*连接数据库*/
+        if(err){
+            console.log(err);
+            return;
+        }
+        const db=client.db(dbName)
+
+        var result=db.collection('user').find(req.body)
+        //遍历数据
+        result.toArray(function(err,data){
+            console.log(data)
+            if(data.length>0){
+                console.log('登录成功')
+                res.redirect('/product')
+            }else{
+                console.log('登录失败 ')
+            }
+            client.close()
+        })
+
+    })
+
 })
 
 //商品
