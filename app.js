@@ -114,7 +114,7 @@ app.get('/product',function(req,res){
                 return;
             }
             console.log(data)//得到查询的数据
-
+            //sadfs
             //将数据渲染到模板
             res.render('product',{
                 list:data
