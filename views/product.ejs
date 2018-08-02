@@ -57,7 +57,10 @@
                             <td><%=list[i].title%></td>
                             <td><%=list[i].price%>元</td>
                             <td><%=list[i].fee%>元</td>
-                            <td class="text-center">修改  删除</td>
+                            <td class="text-center"> 
+                                <a href="/productEdit?id=<%=list[i]._id%>" class="btn btn-success">修改</a>
+                                <a href="/productDelete?id=<%=list[i]._id%>" class="btn btn-danger">删除</a>   
+                            </td>
                         </tr>
                     <% } %>
                     </tbody>
